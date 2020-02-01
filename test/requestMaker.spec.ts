@@ -13,6 +13,7 @@ describe('defaultRequestMakerv1', () => {
             nock.cleanAll()
         })
 
+        afterAll(() => nock.restore())
         it('should add apikey to request params', async () => {
             nock(/.*/)
             .get(/apikey=[^&]*/)
@@ -45,28 +46,22 @@ describe('defaultRequestMakerv1', () => {
 
 
 
-    describe('call with  params : function = GLOBAL_QUOTE, symbol = MSFT', () => {
+    describe('real call with  params : function = GLOBAL_QUOTE, symbol = MSFT', () => {
         const params : GlobalQuoteParams = {
             "function" : FUNCTION.GLOBAL_QUOTE,
             "symbol" : 'MSFT'
         }
 
-        afterEach(() => {
-            nock.cleanAll()
-        });
+        describe('format', () => {
+            it('should contain "Global Quote" property', () => {
+                return expect(defaultRequestMaker(params).then(res => res.data))
+                    .resolves.toHaveProperty('Global Quote')
+            })
 
-        it('should run without mistake', () => {
-            const customData = { someField : 'some data'}
-            
-            return defaultRequestMaker(params)
-            .then(response => expect(response).toBeDefined())
-        })
-
-        it.skip('should work without apikey param passed', async () => {
-            let response : AxiosResponse = await defaultRequestMaker(params)
-
-            console.log(response.data)
-            expect(response.data).not.toHaveProperty('Error Message')
+            it('should contain "Global Quote"."05. price" property', () => {
+                return expect(defaultRequestMaker(params).then(res => res.data))
+                    .resolves.toHaveProperty(['Global Quote', '05. price'])
+            })
         })
     })
 })
