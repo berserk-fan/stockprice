@@ -23,8 +23,7 @@ const config : AxiosRequestConfig = {
     // it is passed to then/catch
     transformResponse: [function (data) {
       // Do whatever you want to transform the data
-      
-      return data;
+      return JSON.parse(data)
     }],
   
     // `headers` are custom headers to be sent
