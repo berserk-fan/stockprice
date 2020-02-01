@@ -6,7 +6,7 @@ import { RequestMaker } from '../src/types'
 describe('StockPriceAPI', () => {
     
     const mock : RequestMaker = (params) => {
-        return Promise.resolve({"Global Quote" : {"05. price" : '123'}})
+        return Promise.resolve({ data : {"Global Quote" : {"05. price" : '123'}}})
     }
     
     const api = client(mock)
