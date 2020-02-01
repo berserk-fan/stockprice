@@ -1,9 +1,9 @@
 import stockAxios from './configs/stockAxios'
 
-import {BaseParams, RequestMaker} from './types'
+import {RequestParams, RequestMaker} from './types'
 import { AxiosResponse } from 'axios'
 
 export const defaultRequestMaker : RequestMaker = 
-function callExtenalAPI(params: BaseParams) : Promise<AxiosResponse> {
+function callExtenalAPI(params: RequestParams) : Promise<AxiosResponse> {
     return stockAxios.get("/query", {"params" : params})
 }

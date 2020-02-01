@@ -6,11 +6,12 @@ export enum FUNCTION {
     GLOBAL_QUOTE = 'GLOBAL_QUOTE'
 }
 
-export type BaseParams = {
+export type RequestParams = {
     function : FUNCTION,
+    symbol ?: string
 }
 
-export type GlobalQuoteParams = {symbol : string} & BaseParams
+export type GlobalQuoteParams = {symbol : string} & RequestParams
 
 export type RequestMakerResponse = {data : any}
-export type RequestMaker = (params : BaseParams) => Promise<RequestMakerResponse>
+export type RequestMaker = (params : RequestParams) => Promise<RequestMakerResponse>

@@ -1,6 +1,5 @@
 import client from '../src/stockPriceClient'
-import { BaseParams, FUNCTION } from './types'
-import { AxiosResponse } from 'axios'
+import { FUNCTION } from '../src/types'
 import { RequestMaker } from '../src/types'
 
 describe('StockPriceAPI', () => {
