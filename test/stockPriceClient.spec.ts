@@ -5,7 +5,7 @@ import { RequestMaker } from '../src/types'
 describe('StockPriceAPI', () => {
 
     let knownSymbol : string = Date.now().toString()
-    
+
     const mock : RequestMaker = (params) => {
         if(params.function === FUNCTION.GLOBAL_QUOTE && params.symbol === knownSymbol) {
             return Promise.resolve({ data : {"Global Quote" : {"05. price" : '123'}}})
@@ -30,6 +30,13 @@ describe('StockPriceAPI', () => {
         it('should reject when given wrong symbol', () => {
             return expect(api.getPrice('WRONG SYMBOL'))
                 .rejects.toEqual(expect.anything())
+        })
+
+        it('should rejects with Error when service response data is undefined', () => {
+            const mockWithUndefinedResponse : RequestMaker = (params) => Promise.resolve({data: undefined})
+            const apiWithBadMock = client(mockWithUndefinedResponse)
+
+            return expect(apiWithBadMock.getPrice('some symbol')).rejects.toEqual(expect.any(Error))
         })
     })
 })
