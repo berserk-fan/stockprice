@@ -12,4 +12,5 @@ export type BaseParams = {
 
 export type GlobalQuoteParams = {symbol : string} & BaseParams
 
-export type RequestMaker = (params : BaseParams) => Promise<any>
+export type RequestMakerResponse = {data : any}
+export type RequestMaker = (params : BaseParams) => Promise<RequestMakerResponse>
