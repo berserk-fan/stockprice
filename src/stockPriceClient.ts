@@ -8,12 +8,14 @@ function clientMaker(requestMaker : RequestMaker) {
 class StockPriceClient{
     constructor(private requestMaker = defaultRequestMaker) {}
 
-    getPrice(symbol: string, restParams ?: any) : Promise<Price> {
-        if(symbol === 'MSFT') {
-            return Promise.resolve({price : '123'})
-        } else {
-            return Promise.reject(Error('UNKNOWN SYMBOL'))
+    async getPrice(symbol: string, restParams ?: any) : Promise<Price> {
+        const baseParams= {
+            "function" : FUNCTION.GLOBAL_QUOTE,
+            "symbol": symbol,
         }
+        const params = Object.assign(baseParams, restParams)
+        const res = await this.requestMaker(params)
+        return {price : res.data["Global Quote"]["05. price"]}
     }
 }
 
