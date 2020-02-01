@@ -58,9 +58,9 @@ describe('defaultRequestMakerv1', () => {
                     .resolves.toHaveProperty('Global Quote')
             })
 
-            it('should contain "Global Quote"."05. price" property', () => {
+            it('should contain "Global Quote"."05. price" property with string value', () => {
                 return expect(defaultRequestMaker(params).then(res => res.data))
-                    .resolves.toHaveProperty(['Global Quote', '05. price'])
+                    .resolves.toHaveProperty(['Global Quote', '05. price'], expect.any(String))
             })
         })
     })
