@@ -20,22 +20,25 @@ describe('defaultRequestMakerv1', () => {
             nock(url)
             .get(/apikey=[^&]*/)
             .reply(200, {})
-
-            const res = await defaultRequestMaker({function : FUNCTION.GLOBAL_QUOTE})
-            expect(res.data).toEqual('{}')
+            
+            
+            return expect(defaultRequestMaker({function : FUNCTION.GLOBAL_QUOTE}))
+                .resolves.toBeDefined()
         })
 
         it('should have /query path', async () => {
-                nock(url)
+            nock(url)
             .get(/\/query/)
             .reply(200, {})
-            const res = await defaultRequestMaker({function : FUNCTION.GLOBAL_QUOTE})
-            expect(res.data).toEqual('{}')
+
+            return expect(defaultRequestMaker({function : FUNCTION.GLOBAL_QUOTE}))
+                .resolves.toBeDefined()
+
         })
 
     })
 
-
+    
 
     describe('call with  params : function = GLOBAL_QUOTE, symbol = MSFT', () => {
         const params : GlobalQuoteParams = {
@@ -45,9 +48,7 @@ describe('defaultRequestMakerv1', () => {
 
         afterEach(() => {
             nock.cleanAll()
-        })
-
-        
+        });
 
         it('should run without mistake', () => {
             const customData = { someField : 'some data'}
