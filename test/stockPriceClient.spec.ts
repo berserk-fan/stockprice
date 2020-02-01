@@ -10,10 +10,14 @@ describe('StockPriceAPI', () => {
     }
     
     const api = client(mock)
-
+    
     describe('getPrice', () => {
         it('should not return undefined', () => {
             return expect(api.getPrice('MSFT')).resolves.toBeDefined()
-        }) 
+        })
+        
+        it('should return object with price property', () => {
+            return expect(api.getPrice('MSFT')).resolves.toHaveProperty('price')
+        })
     })
 })
