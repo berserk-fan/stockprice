@@ -1,12 +1,5 @@
 export type Price = {
-    symbol: string,
-    open: number,
-    high: number,
-    low: number,
-    latestDay: string,
-    previousClose: number,
-    change: number,
-    changePercent: number
+    price : String
 }
 
 export enum FUNCTION {
