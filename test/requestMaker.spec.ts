@@ -25,6 +25,14 @@ describe('defaultRequestMakerv1', () => {
             expect(res.data).toEqual('{}')
         })
 
+        it('should have /query path', async () => {
+                nock(url)
+            .get(/\/query/)
+            .reply(200, {})
+            const res = await defaultRequestMaker({function : FUNCTION.GLOBAL_QUOTE})
+            expect(res.data).toEqual('{}')
+        })
+
     })
 
 
