@@ -9,15 +9,12 @@ import nock from 'nock'
 
 describe('defaultRequestMakerv1', () => {
     describe('url that request maker uses', () => {
-        const url = 'https://www.alphavantage.co'
-        const path = '/query'
-
         afterEach(() => {
             nock.cleanAll()
         })
 
         it('should add apikey to request params', async () => {
-            nock(url)
+            nock(/.*/)
             .get(/apikey=[^&]*/)
             .reply(200, {})
             
@@ -27,7 +24,7 @@ describe('defaultRequestMakerv1', () => {
         })
 
         it('should have /query path', async () => {
-            nock(url)
+            nock(/.*/)
             .get(/\/query/)
             .reply(200, {})
 
@@ -36,9 +33,17 @@ describe('defaultRequestMakerv1', () => {
 
         })
 
+        it('should have https://www.alphavantage.co baseURL', () => {
+            nock('https://www.alphavantage.co')
+            .get(/.*/)
+            .reply(200, {})
+
+            return expect(defaultRequestMaker({function : FUNCTION.GLOBAL_QUOTE}))
+                .resolves.toBeDefined()
+        })
     })
 
-    
+
 
     describe('call with  params : function = GLOBAL_QUOTE, symbol = MSFT', () => {
         const params : GlobalQuoteParams = {
