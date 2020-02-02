@@ -28,7 +28,6 @@ describe('RESTlike API v1', () => {
                 .get('/api/v1/prices')
                 .query({company : company_})
                 
-            console.log(res.body)
             expect(res.body).toHaveProperty('price', expect.any(String))
         })
 
