@@ -11,6 +11,10 @@ export type RequestParams = {
     symbol ?: string
 }
 
+export type StringToString = {
+    [name : string] : string
+}
+
 export type GlobalQuoteParams = {symbol : string} & RequestParams
 
 export type RequestMakerResponse = {data : any}
