@@ -2,11 +2,11 @@
  * @jest-environment node
  */
 
-import makeApp from '../src/app'
+import {makeApp} from '../src/app'
 import request from 'supertest'
 import {StockPriceClient} from '../src/stockPriceClient'
 
-describe('RESTlike API', () => {
+describe('RESTlike API v1', () => {
 
     const knownStockSymbol = Date.now().toString()
     const unknownStockSymbol = 'UNKNOWN' + Date.now().toString()
@@ -55,6 +55,13 @@ describe('RESTlike API', () => {
                 .query({company : unknownStockSymbol})
 
             expect(res.status).toBe(404)
+        })
+
+        it('should return 400 when queried without params', async () => {
+            let res = await request(mockedApp)
+                .get('/api/v1/prices')
+
+            expect(res.status).toBe(400)
         })
     })
 })

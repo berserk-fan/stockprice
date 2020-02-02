@@ -1,7 +1,7 @@
 import express from 'express'
-import {StockPriceClient} from './stockPriceClient'
+import client, {StockPriceClient} from './stockPriceClient'
 
-function makeApp(client: StockPriceClient) {
+export function makeApp(client: StockPriceClient) {
    const app = express()
 
    app.get('/api/v1/prices',async (req, res) => {
@@ -20,4 +20,5 @@ function makeApp(client: StockPriceClient) {
    return app
 }
 
-export default makeApp
+const defaultApp = makeApp(client)
+export default defaultApp

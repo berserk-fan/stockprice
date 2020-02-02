@@ -1,4 +1,4 @@
-import client from '../src/stockPriceClient'
+import {makeClient} from '../src/stockPriceClient'
 import { FUNCTION } from '../src/types'
 import { RequestMaker } from '../src/types'
 
@@ -14,7 +14,7 @@ describe('StockPriceAPI', () => {
         }
     }
     
-    const api = client(mock)
+    const api = makeClient(mock)
     
     describe('getPrice', () => {        
         it('should not return undefined', () => {
@@ -34,7 +34,7 @@ describe('StockPriceAPI', () => {
 
         it('should rejects with Error when service response data is undefined', () => {
             const mockWithUndefinedResponse : RequestMaker = (params) => Promise.resolve({data: undefined})
-            const apiWithBadMock = client(mockWithUndefinedResponse)
+            const apiWithBadMock = makeClient(mockWithUndefinedResponse)
 
             return expect(apiWithBadMock.getPrice('some symbol')).rejects.toEqual(expect.any(Error))
         })
