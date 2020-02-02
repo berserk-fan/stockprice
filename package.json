@@ -26,7 +26,8 @@
   "jest": {
     "rootDir": "./test",
     "testEnvironment": "node",
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "testRegex": "(/test/.*|(\\.|/)(test|spec|e2e))\\.[jt]sx?$"
   },
   "comments": {
     "devDependencies": {
