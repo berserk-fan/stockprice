@@ -7,7 +7,7 @@ export interface StockPriceClient {
 }
 
 class StockPriceClientImpl implements StockPriceClient{
-    constructor(private requestMaker = defaultRequestMaker) {}
+    constructor(private requestMaker : RequestMaker) {}
 
     async getPrice(symbol: string, restParams ?: StringToString) : Promise<Price> {
         const baseParams= {

@@ -71,14 +71,11 @@ function getApiKey() : string {
 
 stockAxios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  const cfg = config || {}
-  const params = cfg.params || {}
+  const cfg = config
+  const params = cfg.params
   params["apikey"] = getApiKey()
   config.params = params  
   return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
 });
 
 stockAxios.defaults.adapter = require('axios/lib/adapters/http')
