@@ -1,11 +1,14 @@
 import express from 'express'
+import {StockPriceClient} from './stockPriceClient'
 
-const app = express()
+function makeApp(client: StockPriceClient) {
+   const app = express()
+   
+   app.get('/api/v1/prices', (req, res) => {
+      res.json({price : '1234'})
+   })
 
-app.all('/api')
+   return app
+}
 
-app.get('/v1/prices', (req, res) => {
-   res.send('Hello world!')
-})
-
-export default app
+export default makeApp
