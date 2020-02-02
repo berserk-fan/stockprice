@@ -1,11 +1,5 @@
-/**
- * @jest-environment node
- */
-
 import {defaultRequestMaker} from '../src/requestMaker'
 import {FUNCTION, GlobalQuoteParams } from '../src/types'
-import { AxiosResponse } from 'axios'
-import nock from 'nock'
 
 describe('defaultRequestMakerv1', () => {
     describe('real call with  params : function = GLOBAL_QUOTE, symbol = MSFT', () => {

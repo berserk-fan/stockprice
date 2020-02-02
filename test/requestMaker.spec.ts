@@ -1,10 +1,5 @@
-/**
- * @jest-environment node
- */
-
 import {defaultRequestMaker} from '../src/requestMaker'
-import {FUNCTION, GlobalQuoteParams } from '../src/types'
-import { AxiosResponse } from 'axios'
+import {FUNCTION} from '../src/types'
 import nock from 'nock'
 
 describe('defaultRequestMakerv1', () => {
