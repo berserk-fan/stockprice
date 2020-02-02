@@ -2,10 +2,14 @@ import {RequestMaker, FUNCTION, Price} from './types'
 import {defaultRequestMaker} from './requestMaker'
 
 function clientMaker(requestMaker : RequestMaker) {
-    return new StockPriceClient(requestMaker)
+    return new StockPriceClientImpl(requestMaker)
 }
 
-class StockPriceClient{
+export interface StockPriceClient {
+    getPrice(symbol: string, restParams ?: any) : Promise<Price>
+}
+
+class StockPriceClientImpl implements StockPriceClient{
     constructor(private requestMaker = defaultRequestMaker) {}
 
     async getPrice(symbol: string, restParams ?: any) : Promise<Price> {
