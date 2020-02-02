@@ -29,12 +29,6 @@ const config : AxiosRequestConfig = {
     // `headers` are custom headers to be sent
     // headers: {'X-Requested-With': 'XMLHttpRequest'},
   
-    // `params` are the URL parameters to be sent with the request
-    // Must be a plain object or a URLSearchParams object
-    params: {
-      apikey: 'NPS7ZSTP3VXUMRH0'
-    },
-  
     // `timeout` specifies the number of milliseconds before the request times out.
     // If the request takes longer than `timeout`, the request will be aborted.
     timeout: 1000, // default is `0` (no timeout)
@@ -47,33 +41,7 @@ const config : AxiosRequestConfig = {
     // options are: 'arraybuffer', 'document', 'json', 'text', 'stream'
     //   browser only: 'blob'
     responseType: 'json', // default
-  
-    // `responseEncoding` indicates encoding to use for decoding responses
-    // Note: Ignored for `responseType` of 'stream' or client-side requests
-  
-    // `xsrfCookieName` is the name of the cookie to use as a value for xsrf token
-    //xsrfCookieName: 'XSRF-TOKEN', // default
-  
-    // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
-    //xsrfHeaderName: 'X-XSRF-TOKEN', // default
-  
-    // `onUploadProgress` allows handling of progress events for uploads
-    //onUploadProgress: function (progressEvent) {
-      // Do whatever you want with the native progress event
-    //},
-  
-    // `onDownloadProgress` allows handling of progress events for downloads
-    //onDownloadProgress: function (progressEvent) {
-      // Do whatever you want with the native progress event
-    //},
-  
-    // `maxContentLength` defines the max size of the http response content in bytes allowed
-    //maxContentLength: 2000,
-  
-    // `validateStatus` defines whether to resolve or reject the promise for a given
-    // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
-    // or `undefined`), the promise will be resolved; otherwise, the promise will be
-    // rejected.
+
     validateStatus: function (status : any) {
       return status >= 200 && status < 300; // default
     },
@@ -81,25 +49,31 @@ const config : AxiosRequestConfig = {
     // `maxRedirects` defines the maximum number of redirects to follow in node.js.
     // If set to 0, no redirects will be followed.
     maxRedirects: 5, // default
-  
-    // `socketPath` defines a UNIX Socket to be used in node.js.
-    // e.g. '/var/run/docker.sock' to send requests to the docker daemon.
-    // Only either `socketPath` or `proxy` can be specified.
-    // If both are specified, `socketPath` is used.
-    //socketPath: null, // default
-  
-    // `httpAgent` and `httpsAgent` define a custom agent to be used when performing http
-    // and https requests, respectively, in node.js. This allows options to be added like
-    // `keepAlive` that are not enabled by default.
-    //httpAgent: new http.Agent({ keepAlive: true }),
-    //httpsAgent: new https.Agent({ keepAlive: true }),
   }
 
 const stockAxios = axios.create(config)
+
+const apiKeysPool = 
+['V7B7ADD30ZM4R787',
+  'E07BQ5EKJNYH61P6',
+  'NDRPQOGC8L8QUJGF',
+  '5SPCBQWODUSF2RZH',
+  'BPJ7ST4YUFPJWCW2',
+  'NPS7ZSTP3VXUMRH0']
+
+const apiKeysCount = apiKeysPool.length
+let curApiKeyIndex = Math.floor((Math.random() * 10)) % 5
+
+function getApiKey() : string {
+  curApiKeyIndex = (curApiKeyIndex + 1) % apiKeysCount
+  return apiKeysPool[curApiKeyIndex]
+}
+
 stockAxios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  const params = config.params || {}
-  params["apikey"] = 'NPS7ZSTP3VXUMRH0'
+  const cfg = config || {}
+  const params = cfg.params || {}
+  params["apikey"] = getApiKey()
   config.params = params  
   return config;
 }, function (error) {
