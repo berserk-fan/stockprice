@@ -1,5 +1,5 @@
 import express from 'express'
-import client, {StockPriceClient} from './stockPriceClient'
+import client, {makeCachingClient, StockPriceClient} from './stockPriceClient'
 
 export function makeApp(client: StockPriceClient) {
    const app = express()
@@ -20,5 +20,5 @@ export function makeApp(client: StockPriceClient) {
    return app
 }
 
-const defaultApp = makeApp(client)
+const defaultApp = makeApp(makeCachingClient(client))
 export default defaultApp
